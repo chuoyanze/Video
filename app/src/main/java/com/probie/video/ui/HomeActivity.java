@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.widget.Toolbar;
 
 import com.probie.video.R;
 import com.probie.video.base.BaseActivity;
@@ -18,10 +17,8 @@ import com.probie.video.model.Img;
 import com.probie.video.model.Tame;
 import com.probie.video.util.HtmlParse;
 import com.probie.video.util.Log;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +27,7 @@ public class HomeActivity extends BaseActivity {
     private static String TAG = "HomeActivity";
 
     private Handler handler;
+    private Toolbar toolbar;
 
     /**启动这个Activity的Intent
      * @param context
@@ -46,14 +44,17 @@ public class HomeActivity extends BaseActivity {
         Log.e(TAG,"HomeActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initView();
-        initData();
-        initView();
+
     }
 
     @Override
     public void initView() {
         Log.i(TAG,"initView");
+        toolbar = findViewById(R.id.toolbar_home);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("首页");
+        //toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        //toolbar.setTitle("首页");
         initHandler();
 
     }
@@ -65,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         runThread(new Runnable() {
             @Override
             public void run() {
-                Document document = HtmlParse.getDocument("http://www.imomoe.in/");
+                Document document = HtmlParse.getDocument("http://www.imomoe.in");
                 Log.e(TAG,document.toString());
                 if (document!=null){
                     Elements tames = document.getElementById("contrainer").getElementsByClass("tame");
@@ -104,19 +105,14 @@ public class HomeActivity extends BaseActivity {
                         Message message = handler.obtainMessage();
                         message.what = 1;
                         message.obj = homeFragment;
+                        handler.sendMessage(message);
 
                         // imgsData.add(li);
 
                     }
 
 
-                 /*   List data = new ArrayList();
-                    data.add(tameData);
-                    data.add(imgsData);
-                    Message message = handler.obtainMessage();
-                    message.what = 1;
-                    message.obj = data;
-                    handler.sendMessage(message);*/
+
 
                 }
             }
@@ -138,12 +134,24 @@ public class HomeActivity extends BaseActivity {
         handler = new Handler(){
 
             @Override
-            public void handleMessage(@NonNull Message msg) {
+            public void handleMessage(@NonNull final Message msg) {
                 super.handleMessage(msg);
                 switch (msg.what){
                     case  1:
-                        HomeFragment fragment =(HomeFragment) msg.obj;
-                        fragmentManager.beginTransaction().add(R.id.scrollview_home,fragment).commit();
+                        runUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HomeFragment fragment =(HomeFragment) msg.obj;
+                                Log.e("handleMessage",fragment.toString());
+                                fragmentManager
+                                        .beginTransaction()
+                                        .add(R.id.linearlayout_home,fragment)
+                                        .show(fragment)
+                                        .commitAllowingStateLoss();
+                            }
+                        });
+
+
 
                         break;
 

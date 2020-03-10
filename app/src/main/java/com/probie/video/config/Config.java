@@ -11,6 +11,6 @@ public class Config {
 
     public static boolean IS_DEBUG = true;  //debug开关
 
-    public static String BASE_URL = "http://www.imomoe.in/";
+    public static String BASE_URL = "http://www.imomoe.in";
 
 }

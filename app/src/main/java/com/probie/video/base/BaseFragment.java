@@ -1,7 +1,7 @@
 package com.probie.video.base;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +86,45 @@ public abstract class BaseFragment extends Fragment implements FragmentPresenter
     public void setContentView(View v, ViewGroup.LayoutParams params) {
         view = v;
     }
+
+
+
+    /**通过id查找并获取控件，使用时不需要强转
+     * @param id
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public <V extends View> V findView(int id) {
+        return (V) view.findViewById(id);
+    }
+    /**通过id查找并获取控件，并setOnClickListener
+     * @param id
+     * @param l
+     * @return
+     */
+    public <V extends View> V findView(int id, OnClickListener l) {
+        V v = findView(id);
+        v.setOnClickListener(l);
+        return v;
+    }
+    /**通过id查找并获取控件，使用时不需要强转
+     * @warn 调用前必须调用setContentView
+     * @param id
+     * @return
+     */
+    public <V extends View> V findViewById(int id) {
+        return findView(id);
+    }
+    /**通过id查找并获取控件，并setOnClickListener
+     * @param id
+     * @param l
+     * @return
+     */
+    public <V extends View> V findViewById(int id, OnClickListener l) {
+        return findView(id, l);
+    }
+
+
 
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -12,16 +13,24 @@ import com.probie.video.R;
 import com.probie.video.base.BaseFragment;
 import com.probie.video.model.Img;
 import com.probie.video.model.Tame;
+import com.probie.video.util.Log;
 
 import java.util.List;
 
 public class HomeFragment extends BaseFragment {
+    private String TAG = "HomeFragment";
     private Tame tame;
     private List<Img> imgs;
+    private TextView action;
+    private TextView more ;
+
 
     public HomeFragment(Tame tame , List<Img> imgs){
         this.imgs =imgs;
         this.tame = tame;
+        Log.i(TAG,tame.getHref());
+        Log.i(TAG,imgs.get(0).getHref());
+
     }
 
     @Nullable
@@ -37,11 +46,14 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
+        action =  findView(R.id.tag_action);
+        more = findView(R.id.tag_more);
     }
 
     @Override
     public void initData() {
+        action.setText(tame.getText());
+        more.setText(tame.getMore());
 
     }
 

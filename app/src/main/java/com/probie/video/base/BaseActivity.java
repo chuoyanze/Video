@@ -49,17 +49,19 @@ public abstract class BaseActivity  extends AppCompatActivity  implements Activi
     protected FragmentManager fragmentManager = null;
     protected Intent intent = null;
 
-    private boolean isAlive = true;
+    private boolean isAlive = false;
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         context = (BaseActivity) getActivity();
         inflater = getLayoutInflater();
         isAlive = true;
-
+        initView();
+        initData();
+        initEvent();
     }
 
 
