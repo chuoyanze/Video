@@ -9,6 +9,9 @@ package com.probie.video.model;
  */
 public class Tame {
     private String text;
+    /**
+     * 右侧连接
+     */
     private String href;
     private String more;
 

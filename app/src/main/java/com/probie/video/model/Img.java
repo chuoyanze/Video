@@ -8,9 +8,22 @@ package com.probie.video.model;
  * @version: $
  */
 public class Img {
+    /**
+     * 详情页路径
+     */
     private String href;
+
+    /**
+     * 图片路径
+     */
     private String src;
+    /**
+     * 标题
+     */
     private String title;
+    /**
+     * 第几集
+     */
     private String episode;
 
     public String getHref() {

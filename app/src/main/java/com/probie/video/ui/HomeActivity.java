@@ -109,7 +109,9 @@ public class HomeActivity extends BaseActivity {
 
                     case 2:
                         Document document = (Document) msg.obj;
-                        initHome(document);
+                        if (document!=null){
+                            initHome(document);
+                        }
                         break;
 
 

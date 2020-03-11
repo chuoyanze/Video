@@ -33,6 +33,13 @@ public interface Presenter {
      * @must Activity-在子类onCreate方法内初始化View(setContentView)后调用；Fragment-在子类onCreateView方法内初始化View后调用
      */
     void initEvent();
-
+    /**
+     * 是否存活(已启动且未被销毁)
+     */
+    boolean isAlive();
+    /**
+     * 是否在运行
+     */
+    boolean isRunning();
 
 }

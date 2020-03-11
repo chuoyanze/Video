@@ -1,6 +1,7 @@
 package com.probie.video.base;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.probie.video.interfaces.FragmentPresenter;
  * @version: $
  */
 public abstract class BaseFragment extends Fragment implements FragmentPresenter {
+
+    private static final String TAG = "BaseFragment";
 
     /**
      * 添加该Fragment的Activity
@@ -125,7 +128,30 @@ public abstract class BaseFragment extends Fragment implements FragmentPresenter
     }
 
 
+    @Override
+    public final boolean isAlive() {
+        return isAlive && context != null;// & ! isRemoving();导致finish，onDestroy内runUiThread不可用
+    }
+    @Override
+    public final boolean isRunning() {
+        return isRunning & isAlive();
+    }
 
+    @Override
+    public void onResume() {
+        Log.d(TAG, "\n onResume <<<<<<<<<<<<<<<<<<<<<<<");
+        super.onResume();
+        isRunning = true;
+        Log.d(TAG, "onResume >>>>>>>>>>>>>>>>>>>>>>>>\n");
+    }
+
+    @Override
+    public void onPause() {
+        Log.d(TAG, "\n onPause <<<<<<<<<<<<<<<<<<<<<<<");
+        super.onPause();
+        isRunning = false;
+        Log.d(TAG, "onPause >>>>>>>>>>>>>>>>>>>>>>>>\n");
+    }
 
 
     /**销毁并回收内存

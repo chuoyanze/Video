@@ -35,8 +35,7 @@ public class HomeFragment extends BaseFragment {
 
 
     }
-    /* Log.i(TAG,tame.getHref());
-            Log.i(TAG,imgs.get(0).getHref());*/
+    
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

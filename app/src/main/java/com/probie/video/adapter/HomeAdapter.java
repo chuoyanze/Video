@@ -1,6 +1,7 @@
 package com.probie.video.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.probie.video.R;
 import com.probie.video.model.Img;
+import com.probie.video.ui.DeatilActivity;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class HomeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
         if (convertView == null){
@@ -77,6 +79,13 @@ public class HomeAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //todo...............
+                Intent intent = DeatilActivity.createIntent(context);
+                intent.putExtra("IMG_SRC",getItem(position).getSrc());
+                intent.putExtra("DEATIL_HREF",getItem(position).getHref());
+                intent.putExtra("TITLE",getItem(position).getTitle());
+
+                context.startActivity(intent);
+
             }
         });
 
