@@ -17,16 +17,13 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.e(TAG,"SplashActivity");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spalsh);
-        initView();
-        initData();
-        initView();
+
     }
 
     @Override
     public void initView() {
+        setContentView(R.layout.activity_spalsh);
         Log.e(TAG,"initView");
-
         new Handler().postDelayed(new Runnable() {
 
             @Override
